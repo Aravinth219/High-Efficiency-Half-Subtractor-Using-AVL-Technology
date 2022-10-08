@@ -1,0 +1,50 @@
+* c:\users\pmuru\esim-workspace\subtractor\subtractor.cir
+
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__diode_pd2nw_11v0.model.spice"
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__pnp.model.spice"
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__diode_pw2nd_11v0.model.spice"
+.lib "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130.lib.spice" tt
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__r+c.model.spice"
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__inductors.model.spice"
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__linear.model.spice"
+xsc14 net-_sc13-pad3_ net-_sc13-pad3_ net-_sc1-pad3_ net-_sc1-pad3_ sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc13 net-_sc11-pad3_ net-_sc11-pad3_ net-_sc13-pad3_ net-_sc13-pad3_ sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc17 bow net-_sc10-pad2_ gnd gnd sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc2 net-_sc1-pad1_ input1 gnd gnd sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc12 bow input1 gnd gnd sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc18 net-_sc1-pad3_ input2 net-_sc10-pad2_ net-_sc10-pad2_ sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc19 net-_sc10-pad2_ input2 gnd gnd sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc10 net-_sc10-pad1_ net-_sc10-pad2_ gnd gnd sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc6 net-_sc5-pad3_ input2 gnd gnd sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc9 dif net-_sc1-pad1_ net-_sc10-pad1_ net-_sc10-pad1_ sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc5 dif input1 net-_sc5-pad3_ net-_sc5-pad3_ sky130_fd_pr__nfet_01v8 W=1 L=1
+xsc1 net-_sc1-pad1_ input1 net-_sc1-pad3_ net-_sc1-pad1_ sky130_fd_pr__pfet_01v8 W=1 L=1
+xsc11 net-_sc1-pad3_ net-_sc11-pad2_ net-_sc11-pad3_ net-_sc1-pad3_ sky130_fd_pr__pfet_01v8 W=1 L=1
+xsc3 net-_sc3-pad1_ input1 net-_sc1-pad3_ net-_sc3-pad1_ sky130_fd_pr__pfet_01v8 W=1 L=1
+xsc4 dif net-_sc1-pad1_ net-_sc3-pad1_ dif sky130_fd_pr__pfet_01v8 W=1 L=1
+xsc7 net-_sc3-pad1_ input2 net-_sc1-pad3_ net-_sc3-pad1_ sky130_fd_pr__pfet_01v8 W=1 L=1
+xsc8 dif net-_sc10-pad2_ net-_sc3-pad1_ dif sky130_fd_pr__pfet_01v8 W=1 L=1
+xsc15 net-_sc15-pad1_ input1 net-_sc1-pad3_ net-_sc15-pad1_ sky130_fd_pr__pfet_01v8 W=1 L=1
+xsc16 bow net-_sc10-pad2_ net-_sc15-pad1_ bow sky130_fd_pr__pfet_01v8 W=1 L=1
+v2  net-_sc11-pad2_ gnd pulse(0 0.2 0.1m 0.1m 0.1m 0.25 0.4)
+v1  input1 gnd pulse(0 0.2 0.1m 0.1m 0.1m 0.1 0.2)
+v4  input2 gnd pulse(0 0.2 0.1m 0.1m 0.1m 0.4 0.8)
+v3 net-_sc11-pad3_ gnd  dc 5
+* s c m o d e
+* u1  dif plot_v1
+* u2  bow plot_v1
+* u4  input2 plot_v1
+* u3  input1 plot_v1
+.tran 0.1e-00 2e-00 0e-00
+
+* Control Statements 
+.control
+run
+print allv > plot_data_v.txt
+print alli > plot_data_i.txt
+plot v(dif)
+plot v(bow)
+plot v(input2)
+plot v(input1)
+.endc
+.end
